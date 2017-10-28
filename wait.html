@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday</title>
+    <link rel="icon" href="images/cake.png">
+
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sniglet:800" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://use.fontawesome.com/ee57c8a0cc.js"></script>
+    <script src="jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<main>
+    <div class="centered w-100" style="height: 400px">
+        <div class="wrapper centered" >
+            <div class="wrapper" style="position: relative; height: 400px">
+            <div class="spin-wrapper">
+                <ul id="pie"></ul>
+            </div>
+            <div class="circle circle-minion" style="line-height: 300px; position: relative; bottom:360px">
+                <img class="sticker" src="images/minionWait.png" style="vertical-align: middle">
+            </div>
+        </div>
+        </div>
+    </div>
+</main>
+
+</body>
+<script>
+    var seconds = 60;
+    var counter = 0;
+    var childNum = 0;
+    function ListItem(i) {
+      return ($("<li class='spin-sector'><div class='content' data-number='i'></div></li>"));
+    }
+    function countdown() {
+        console.log("start");
+        seconds--;
+        counter++;
+
+        if (counter == 5) {
+            childNum++;
+            counter = 0
+            updateProgress()
+        }
+        if (seconds == 0) {
+
+            window.location.href = "jar.html"
+        }
+
+        timeoutMyOswego = setTimeout(countdown, 1000);
+    }
+    function updateProgress() {
+        console.log("create node")
+        var node = new ListItem(childNum - 1);
+
+        $("#pie").prepend(node)
+    }
+    countdown();
+</script>
+</html>

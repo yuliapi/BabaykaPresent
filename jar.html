@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>100 moments</title>
+    <link rel="icon" href="images/jarsmall.png">
+    <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Source+Serif+Pro" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="general.css">
+    <script src="https://use.fontawesome.com/ee57c8a0cc.js"></script>
+    <script src="jquery-3.2.1.min.js"></script>
+
+</head>
+<body>
+<div class='wrap'>
+    <header>
+        <div class="header-wrapper">
+            <div class="top-nav-col">
+                <img class="sticker" src="images/minionWhat.png" style="margin: 10px;">
+                <a href="about.html" class="nav-link nav-text">Whaaaat???</a>
+            </div>
+            <div class="top-nav-col">
+                <img class="sticker" src="images/minionWhy.png" style="margin: 10px;">
+                <a href="why.html" class="nav-link nav-text">Whhhhy???</a>
+            </div>
+            <div class="top-nav-col">
+                <img class="sticker" src="images/minionNext.png" style="margin: 10px;">
+                <a href="next.html" class="nav-link nav-text">What next???</a>
+            </div>
+            <div class="top-nav-col">
+                <img class="sticker" src="images/minionGoAway.png" style="margin: 10px;">
+                <a href="index.html" class="nav-link nav-text" style="vertical-align: middle;">Нумо <br>звідси!!!</a>
+            </div>
+        </div>
+
+
+    </header>
+    <div class='bodywrap'>
+        <div class="sidebar">
+            <nav>
+                <ul>
+                    <li class="aside-item">
+                        <a href="addnew.html" class="nav-link nav-text">Add new</a>
+                    </li>
+                    <li class="aside-item">
+                        <a href="nostalgia.html" class="nav-link nav-text">To nostalgize</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="total-counter">
+                <p class="nav-text">
+                    Total:
+                </p>
+            </div>
+            <div class="jar-wrapper" id="jar">
+
+
+                <img class="sticker" src="images/jar.png" style="width: 250px;">
+
+            </div>
+            <nav>
+                <ul>
+                    <li class="aside-item">
+                        <a class="nav-link nav-text">Cookie</a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+        <main>
+            <div class="content-wrapper">
+                <div class="content" style="text-align: center">
+
+                        <h2 class="nav-text text-special">You are:<span><img src="images/arrowDown.png"></span></h2>
+                        <div class="cloud-wrapper">
+                            <div id="cloud" class="cloud">
+
+                            </div>
+                        </div>
+                    <h2 class="nav-text text-special">And I wish you to be even more:<span><img src="images/arrowUp.png"></span></h2>
+                    <p class="nav-text text-special">Note: size doesn't matter, just for beauty :)</p>
+
+
+                </div>
+            </div>
+        </main>
+
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        dropStar()
+    }
+    /******************************Cloud*******************************************/
+    var requestURL = 'https://yuliapi.github.io/datastorage/presentdata.json'
+    var availableColors;
+    var request = new XMLHttpRequest();
+    request.open('GET', requestURL);
+    request.responseType = 'json';
+    request.send();
+    request.onload = function () {
+        var data = request.response;
+        availableColors = data.colors
+        createCloud(data.wishes)
+    };
+
+
+    function createCloud(wishes) {
+        var array = [];
+        var randomWishes = {};
+        for (var key in wishes) {
+            if (wishes.hasOwnProperty(key)) {
+                array.push(key);
+            }
+        }
+
+        var newArr = randomizeArr(array);
+
+        for (var i = 0; i < newArr.length; i++) {
+            var k = newArr[i]
+            randomWishes[k] = wishes[k]
+        }
+
+        for (var key in randomWishes) {
+            if (wishes.hasOwnProperty(key)) {
+                var entry = new CloudElement(key, wishes[key])
+                $("#cloud").append(entry);
+            }
+        }
+    }
+
+    function randomizeArr(array) {
+        //shuffle algorithm is the Fisher-Yates Shuffle.
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
+
+    function CloudElement(tag, weight) {
+        var tag = ' ' + tag + ' ';
+        var span = $("<span></span>");
+        var link = $("<a href=''></a>");
+        link.text(tag);
+        var size;
+        if (weight > 0 && weight <= 10) {
+            size = "18px"
+        }
+        if (weight > 10 && weight <= 20) {
+            size = "36px"
+        }
+        if (weight > 20) {
+            size = "60px"
+        }
+        link.css("font-size", size);
+        var color = availableColors[Math.floor(Math.random() * availableColors.length)];
+
+        link.css("color", color)
+        span.append(link);
+        return span;
+    }
+    /******************************stars in jar**************************************/
+
+    function dropStar() {
+        console.log("star")
+        var jar = $("#jar");
+        var star = new Star;
+        console.log (star)
+        jar.prepend(star);
+    }
+
+    function Star() {
+        return ( $("<span class='star'><img src='images/star.png'></span>"))
+    }
+</script>
+</body>
+</html>
+
+

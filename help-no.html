@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday</title>
+    <link rel="icon" href="images/cake.png">
+
+    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Sniglet:800" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="normalize.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://use.fontawesome.com/ee57c8a0cc.js"></script>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+        window.onload = function () {
+            console.log('load');
+            $("body").click(function (e) {
+                console.log($(e.target))
+                var element = $(e.target)
+                console.log()
+                if (element.hasClass('modal')) {
+                    closeModal("#" + element.attr("id"))
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<main>
+
+    <div class="centered w-100" style="height: 400px">
+        <div class="wrapper centered">
+
+            <img class="sticker" src="images/pusheenAngry1.png" style="vertical-align: middle; margin-right: 20px">
+            <p class="text-special nav-text">Your next options are:</p>
+            <div class="birthdayPage">
+                <a href="next.html#willHelp" class="btn-form-action nav-text">Try to make another decision</a>
+                <button class="btn-form-action nav-text" onclick="showModal(this)" data-target="#modalOne">Ask for hard
+                    copy of jar
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modalOne">
+        <div class="modal-body">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal(modalOne)"><i class="fa fa-times"
+                                                                              aria-hidden="true"></i></button>
+            </div>
+            <img class="sticker" src="images/pusheenSure.png">
+
+            <div class="dialog">
+                <div class="dialog-text info">
+                    <p>OMG!!! <br>You have got one hard-copy jar already! <br>Think one more time and make another good
+                        decision. <br>TRUST ME!!!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<script>
+
+    function showModal(e) {
+
+        var modal = $(e).attr("data-target");
+
+        $(modal).addClass("show");
+    }
+    function closeModal(e) {
+        $(e).removeClass("show");
+    }
+</script>
+</body>
+</html>
